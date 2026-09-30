@@ -1,20 +1,132 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Picly - Rede Social Moderna</title>
-    <meta name="description" content="Rede social completa e moderna inspirada no Instagram com feed, stories, mensagens, perfis e painel administrativo." />
-    <meta property="og:title" content="Picly - Rede Social Moderna" />
-    <meta property="og:description" content="Rede social completa e moderna inspirada no Instagram com feed, stories, mensagens, perfis e painel administrativo." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased selection:bg-rose-500 selection:text-white transition-colors duration-200">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Picly — Laboratório de Segurança</title>
+<style>
+:root{--bg:#fafafa;--card:#fff;--text:#171717;--muted:#737373;--line:#e5e5e5;--accent:#e11d48;--accent2:#7c3aed}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+button,input{font:inherit}.wrap{max-width:980px;margin:auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;padding:12px 0 22px}
+.brand{font-size:28px;font-weight:900;letter-spacing:-1.2px}.brand span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
+.badge{font-size:12px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:#fff}
+.grid{display:grid;grid-template-columns:320px 1fr;gap:22px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 30px #00000008}
+.login{padding:24px}.login h2{margin:0 0 8px}.login p{color:var(--muted);font-size:14px;line-height:1.45}.field{display:flex;flex-direction:column;gap:7px;margin:14px 0}.field label{font-size:12px;font-weight:800}.field input{border:1px solid var(--line);border-radius:12px;padding:12px 13px;outline:none}.field input:focus{border-color:#a3a3a3}
+.primary{width:100%;border:0;border-radius:12px;padding:12px 14px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-weight:800;cursor:pointer}.primary:active{transform:translateY(1px)}
+.msg{min-height:20px;font-size:13px;margin-top:10px}.ok{color:#15803d}.err{color:#b91c1c}.hint{margin-top:18px;padding:13px;border-radius:14px;background:#faf5ff;border:1px solid #e9d5ff;color:#6b21a8;font-size:12px;line-height:1.45}
+.app{overflow:hidden}.hero{padding:22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}.avatar{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(135deg,#fb7185,#8b5cf6)}
+.hero h3{margin:0}.hero small{color:var(--muted)}.nav{display:flex;gap:8px;padding:14px;border-bottom:1px solid var(--line);overflow:auto}.nav button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;white-space:nowrap}.nav button.active{background:#171717;color:#fff;border-color:#171717}
+.content{padding:18px}.post{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px;background:#fff}.photo{height:280px;background:linear-gradient(135deg,#fb7185 0%,#f59e0b 35%,#8b5cf6 70%,#2563eb 100%);display:grid;place-items:center;color:white;font-size:44px;font-weight:900}.postbody{padding:14px}.postbody b{display:block;margin-bottom:5px}.postbody p{margin:0;color:#404040;line-height:1.5}.section-title{font-size:14px;font-weight:900;margin:0 0 12px}.account{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}.account:last-child{border-bottom:0}.account small{color:var(--muted)}
+.logout{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}.locked{padding:34px;text-align:center;color:var(--muted)}.locked strong{display:block;color:#262626;margin-bottom:6px}
+.footer{padding:24px 0;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.wrap{padding:14px}.photo{height:220px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span>picly</span></div>
+    <div class="badge">laboratório fictício • sem banco de dados</div>
+  </div>
+
+  <div class="grid">
+    <section class="card login">
+      <h2>Entrar</h2>
+      <p>Contas de laboratório ficam embutidas no próprio site. Nenhum dado real é coletado.</p>
+      <form id="loginForm">
+        <div class="field"><label>USUÁRIO</label><input id="user" autocomplete="username" placeholder="@lucas"></div>
+        <div class="field"><label>SENHA</label><input id="pass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+        <button class="primary">Entrar</button>
+      </form>
+      <div id="msg" class="msg"></div>
+      <div class="hint">
+        <b>Atividade de segurança:</b> existe um fluxo legado propositalmente fraco, limitado às contas fictícias comuns. Ele não libera a conta administrativa e não acessa nenhum sistema externo.
+      </div>
+    </section>
+
+    <section class="card app">
+      <div id="appHeader" class="hero">
+        <div class="avatar">P</div>
+        <div><h3>Picly</h3><small>Faça login para abrir o feed</small></div>
+      </div>
+      <div class="nav">
+        <button class="active" data-tab="feed">Feed</button>
+        <button data-tab="explore">Explorar</button>
+        <button data-tab="accounts">Pessoas</button>
+        <button data-tab="profile">Perfil</button>
+      </div>
+      <div id="content" class="content"><div class="locked"><strong>Sessão bloqueada</strong>Entre com uma conta fictícia para continuar.</div></div>
+    </section>
+  </div>
+  <div class="footer">Picly Classroom Lab • ambiente de simulação autorizado</div>
+</div>
+
+<script>
+const accounts=[
+ {username:"lucas",password:"Lx2026!foto",name:"Lucas Martins",bio:"Fotografia urbana • São Paulo",role:"user",emoji:"📸"},
+ {username:"mari",password:"Mari#design26",name:"Mariana Souza",bio:"Design, cores e café",role:"user",emoji:"🎨"},
+ {username:"pedrolima",password:"Pedro.dev_26",name:"Pedro Lima",bio:"Código, música e jogos",role:"user",emoji:"💻"},
+ {username:"juliaalves",password:"Julia@food26",name:"Julia Alves",bio:"Gastronomia e viagens",role:"user",emoji:"🍜"},
+ {username:"carlos",password:"RunCarlos26!",name:"Carlos Mendes",bio:"Corrida e vida saudável",role:"user",emoji:"🏃"},
+ {username:"admin",password:"AdminOnly#2026",name:"Admin Picly",bio:"Administração do laboratório",role:"admin",emoji:"🛡️"}
+];
+
+let current=null, activeTab="feed";
+const $=s=>document.querySelector(s);
+const clean=s=>String(s||"").trim().toLowerCase().replace(/^@/,"");
+function legacyProof(username){
+  let s="picly-mobile-v1:"+username+":offline",h=2166136261;
+  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}
+  return (h>>>0).toString(16).padStart(8,"0");
+}
+function setMessage(text,type=""){const e=$("#msg");e.textContent=text;e.className="msg "+type}
+function loginUser(a,mode="normal"){
+  current=a; sessionStorage.setItem("piclyUser",a.username);
+  setMessage(mode==="legacy"?"Sessão de compatibilidade aberta no laboratório.":"Login realizado.","ok");
+  renderHeader(); render();
+}
+function renderHeader(){
+  if(!current){$("#appHeader").innerHTML='<div class="avatar">P</div><div><h3>Picly</h3><small>Faça login para abrir o feed</small></div>';return}
+  $("#appHeader").innerHTML='<div class="avatar">'+current.emoji+'</div><div style="flex:1"><h3>'+current.name+'</h3><small>@'+current.username+' • '+current.role+'</small></div><button class="logout" id="logout">Sair</button>';
+  $("#logout").onclick=()=>{current=null;sessionStorage.removeItem("piclyUser");setMessage("");renderHeader();render()}
+}
+function render(){
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===activeTab));
+  if(!current){$("#content").innerHTML='<div class="locked"><strong>Sessão bloqueada</strong>Entre com uma conta fictícia para continuar.</div>';return}
+  if(activeTab==="feed"){
+    $("#content").innerHTML='<div class="post"><div class="photo">'+current.emoji+'</div><div class="postbody"><b>@'+current.username+'</b><p>Primeira publicação no Picly ✨ Este conteúdo é apenas demonstrativo.</p></div></div><div class="post"><div class="photo" style="background:linear-gradient(135deg,#0ea5e9,#22c55e)">'+accounts[(accounts.indexOf(current)+1)%5].emoji+'</div><div class="postbody"><b>@'+accounts[(accounts.indexOf(current)+1)%5].username+'</b><p>Mais um dia no laboratório de redes sociais.</p></div></div>';
+  }else if(activeTab==="explore"){
+    $("#content").innerHTML='<p class="section-title">Explorar</p><div class="photo" style="border-radius:16px;height:230px">#PICLY</div>';
+  }else if(activeTab==="accounts"){
+    $("#content").innerHTML='<p class="section-title">Contas fictícias</p>'+accounts.filter(a=>a.role!=="admin").map(a=>'<div class="account"><div><b>'+a.emoji+' '+a.name+'</b><br><small>@'+a.username+'</small></div><small>demo</small></div>').join("");
+  }else{
+    $("#content").innerHTML='<p class="section-title">Meu perfil</p><div style="font-size:48px">'+current.emoji+'</div><h2 style="margin-bottom:4px">'+current.name+'</h2><div style="color:#737373">@'+current.username+'</div><p>'+current.bio+'</p>';
+  }
+}
+$("#loginForm").onsubmit=e=>{
+  e.preventDefault();
+  const u=clean($("#user").value), p=$("#pass").value;
+  const a=accounts.find(x=>x.username===u);
+  if(!a||a.password!==p){setMessage("Usuário ou senha incorretos.","err");return}
+  loginUser(a);
+};
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{activeTab=b.dataset.tab;render()});
+
+// Fluxo legado de laboratório.
+// Exemplo conceitual: ?legacy=<usuario>&proof=<prova>
+// A prova é propositalmente previsível e existe só para simular uma falha de autenticação.
+// A conta admin é explicitamente bloqueada.
+const q=new URLSearchParams(location.search);
+if(q.has("legacy")&&q.has("proof")){
+ const u=clean(q.get("legacy")), a=accounts.find(x=>x.username===u);
+ if(a&&a.role!=="admin"&&q.get("proof")===legacyProof(u)) loginUser(a,"legacy");
+ else setMessage("Falha na validação do cliente legado.","err");
+}else{
+ const saved=sessionStorage.getItem("piclyUser");
+ const a=accounts.find(x=>x.username===saved);
+ if(a) current=a;
+ renderHeader();render();
+}
+</script>
+</body>
 </html>
