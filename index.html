@@ -20,7 +20,7 @@
 </style>
 </head>
 <body>
-<div id="auth"><div class="authbox"><div class="logo">Picly</div><div id="choosePane"><div class="muted">Escolha uma conta fictícia para entrar</div><div id="demoGrid" class="demoGrid"></div><button class="link" id="showCreate">Criar conta temporária</button></div><div id="createAccount" class="hidden"><input id="newName" placeholder="Nome completo"><input id="newUser" placeholder="Nome de usuário"><button class="primary" id="createAccountBtn">Criar e entrar</button><div style="margin-top:14px"><button class="link" id="backChoose">Voltar</button></div></div></div></div>
+<div id="auth"><div class="authbox"><div class="logo">Picly</div><div id="loginPane"><input id="loginUser" placeholder="Usuário"><input id="loginPass" type="password" placeholder="Senha"><button class="primary" id="loginBtn">Entrar</button><div id="loginMsg" class="tiny" style="min-height:18px;margin-top:10px"></div><div style="margin-top:16px"><button class="link" id="showCreate">Criar conta temporária</button></div></div><div id="createAccount" class="hidden"><input id="newName" placeholder="Nome completo"><input id="newUser" placeholder="Nome de usuário"><button class="primary" id="createAccountBtn">Criar e entrar</button><div style="margin-top:14px"><button class="link" id="backChoose">Voltar</button></div></div></div></div>
 
 <div id="app" class="hidden">
 <aside class="sidebar"><div class="sideLogo">Picly</div>
@@ -38,13 +38,13 @@
 
 <script>
 const accounts=[
- {username:"lucas",name:"Lucas Martins",bio:"Fotografia urbana • São Paulo",emoji:"📸"},
- {username:"mari",name:"Mariana Souza",bio:"Design, cores e café",emoji:"🎨"},
- {username:"pedrolima",name:"Pedro Lima",bio:"Código, música e jogos",emoji:"💻"},
- {username:"juliaalves",name:"Julia Alves",bio:"Gastronomia e viagens",emoji:"🍜"},
- {username:"carlos",name:"Carlos Mendes",bio:"Corrida e vida saudável",emoji:"🏃"},
- {username:"bia",name:"Beatriz Rocha",bio:"Música, shows e fotos antigas",emoji:"🎧"},
- {username:"rafa",name:"Rafael Nunes",bio:"Skate e vídeo",emoji:"🛹"}
+ {username:"lucas",name:"Lucas Martins",bio:"Fotografia urbana • São Paulo",emoji:"📸",passHash:"85228f0e"},
+ {username:"mari",name:"Mariana Souza",bio:"Design, cores e café",emoji:"🎨",passHash:"b3ea0725"},
+ {username:"pedrolima",name:"Pedro Lima",bio:"Código, música e jogos",emoji:"💻",passHash:"b189509e"},
+ {username:"juliaalves",name:"Julia Alves",bio:"Gastronomia e viagens",emoji:"🍜",passHash:"5be20e1e"},
+ {username:"carlos",name:"Carlos Mendes",bio:"Corrida e vida saudável",emoji:"🏃",passHash:"422972be"},
+ {username:"bia",name:"Beatriz Rocha",bio:"Música, shows e fotos antigas",emoji:"🎧",passHash:"9de91ae1"},
+ {username:"rafa",name:"Rafael Nunes",bio:"Skate e vídeo",emoji:"🛹",passHash:"ed19eb9a"}
 ];
 let current=null,pageName="home",selectedChat="mari",chosenGrad="g1";const createdPosts=[],likes={},comments={};
 const posts=[
@@ -73,6 +73,10 @@ function selectChat(u){selectedChat=u;render()}function sendMessage(peer){const 
 function createPage(){return '<div class="createBox"><div class="createTitle">Criar nova publicação</div><div class="createBody"><textarea id="cap" placeholder="Escreva uma legenda..."></textarea><div class="palette">'+["g1","g2","g3","g4","g5"].map((g,i)=>'<button class="swatch '+g+(i===0?' sel':'')+'" data-grad="'+g+'" onclick="pickGrad(this)"></button>').join("")+'</div><input id="symbol" maxlength="12" placeholder="Texto da imagem" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:8px"><button class="primary" onclick="createPost()">Compartilhar</button></div></div>'}function pickGrad(el){chosenGrad=el.dataset.grad;document.querySelectorAll(".swatch").forEach(x=>x.classList.remove("sel"));el.classList.add("sel")}function createPost(){const cap=$("#cap").value.trim(),sym=$("#symbol").value.trim()||"PICLY";createdPosts.unshift({id:1000+createdPosts.length,user:current.username,emoji:current.emoji,grad:chosenGrad,symbol:sym.toUpperCase(),caption:cap||"Nova publicação ✨",likes:0,time:"agora"});nav("home")}
 function toggleLike(id){likes[id]=!likes[id];render()}function focusComment(id){$("#c"+id)?.focus()}function addComment(id){const e=$("#c"+id);if(!e||!e.value.trim())return;(comments[id]||(comments[id]=[])).push(e.value.trim());render()}
 function render(){document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===pageName));const p=$("#page");if(pageName==="home")p.innerHTML=home();else if(pageName==="explore")p.innerHTML=explore();else if(pageName==="search")p.innerHTML=searchPage();else if(pageName==="messages")p.innerHTML=messagesPage();else if(pageName==="create")p.innerHTML=createPage();else p.innerHTML=profilePage()}
-function drawAccounts(){$("#demoGrid").innerHTML=accounts.slice(0,6).map(a=>'<button class="demo" onclick="enter(acct(\''+a.username+'\'))"><div class="mini">'+a.emoji+'</div><div><b>@'+a.username+'</b><div class="tiny">'+esc(a.name)+'</div></div></button>').join("")}
-drawAccounts();document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>nav(b.dataset.page));$("#logoutBtn").onclick=logout;$("#showCreate").onclick=()=>{$("#choosePane").classList.add("hidden");$("#createAccount").classList.remove("hidden")};$("#backChoose").onclick=()=>{$("#createAccount").classList.add("hidden");$("#choosePane").classList.remove("hidden")};$("#createAccountBtn").onclick=()=>{const name=$("#newName").value.trim(),u=$("#newUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g,"");if(!name||u.length<3){alert("Preencha nome e usuário.");return}if(accounts.some(a=>a.username===u)){alert("Esse usuário já existe.");return}const a={username:u,name,bio:"Conta temporária desta sessão",emoji:"🙂"};accounts.push(a);enter(a)};
+function labHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return(h>>>0).toString(16).padStart(8,"0")}
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>nav(b.dataset.page));$("#logoutBtn").onclick=logout;
+$("#loginBtn").onclick=()=>{const u=$("#loginUser").value.trim().toLowerCase().replace(/^@/,""),p=$("#loginPass").value,a=acct(u);if(!a||a.passHash!==labHash(p)){$("#loginMsg").textContent="Usuário ou senha incorretos.";return}$("#loginMsg").textContent="";enter(a)};
+$("#showCreate").onclick=()=>{$("#loginPane").classList.add("hidden");$("#createAccount").classList.remove("hidden")};
+$("#backChoose").onclick=()=>{$("#createAccount").classList.add("hidden");$("#loginPane").classList.remove("hidden")};
+$("#createAccountBtn").onclick=()=>{const name=$("#newName").value.trim(),u=$("#newUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g,"");if(!name||u.length<3){alert("Preencha nome e usuário.");return}if(accounts.some(a=>a.username===u)){alert("Esse usuário já existe.");return}const a={username:u,name,bio:"Conta temporária desta sessão",emoji:"🙂",temporary:true};accounts.push(a);enter(a)};
 </script></body></html>
