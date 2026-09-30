@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /archive/
+
+# migration leftovers should not be indexed
