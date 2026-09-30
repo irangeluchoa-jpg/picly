@@ -1,132 +1,78 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Picly — Laboratório de Segurança</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Picly</title>
 <style>
-:root{--bg:#fafafa;--card:#fff;--text:#171717;--muted:#737373;--line:#e5e5e5;--accent:#e11d48;--accent2:#7c3aed}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
-button,input{font:inherit}.wrap{max-width:980px;margin:auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;padding:12px 0 22px}
-.brand{font-size:28px;font-weight:900;letter-spacing:-1.2px}.brand span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
-.badge{font-size:12px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:#fff}
-.grid{display:grid;grid-template-columns:320px 1fr;gap:22px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 30px #00000008}
-.login{padding:24px}.login h2{margin:0 0 8px}.login p{color:var(--muted);font-size:14px;line-height:1.45}.field{display:flex;flex-direction:column;gap:7px;margin:14px 0}.field label{font-size:12px;font-weight:800}.field input{border:1px solid var(--line);border-radius:12px;padding:12px 13px;outline:none}.field input:focus{border-color:#a3a3a3}
-.primary{width:100%;border:0;border-radius:12px;padding:12px 14px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-weight:800;cursor:pointer}.primary:active{transform:translateY(1px)}
-.msg{min-height:20px;font-size:13px;margin-top:10px}.ok{color:#15803d}.err{color:#b91c1c}.hint{margin-top:18px;padding:13px;border-radius:14px;background:#faf5ff;border:1px solid #e9d5ff;color:#6b21a8;font-size:12px;line-height:1.45}
-.app{overflow:hidden}.hero{padding:22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}.avatar{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(135deg,#fb7185,#8b5cf6)}
-.hero h3{margin:0}.hero small{color:var(--muted)}.nav{display:flex;gap:8px;padding:14px;border-bottom:1px solid var(--line);overflow:auto}.nav button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;white-space:nowrap}.nav button.active{background:#171717;color:#fff;border-color:#171717}
-.content{padding:18px}.post{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px;background:#fff}.photo{height:280px;background:linear-gradient(135deg,#fb7185 0%,#f59e0b 35%,#8b5cf6 70%,#2563eb 100%);display:grid;place-items:center;color:white;font-size:44px;font-weight:900}.postbody{padding:14px}.postbody b{display:block;margin-bottom:5px}.postbody p{margin:0;color:#404040;line-height:1.5}.section-title{font-size:14px;font-weight:900;margin:0 0 12px}.account{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}.account:last-child{border-bottom:0}.account small{color:var(--muted)}
-.logout{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}.locked{padding:34px;text-align:center;color:var(--muted)}.locked strong{display:block;color:#262626;margin-bottom:6px}
-.footer{padding:24px 0;color:var(--muted);font-size:12px;text-align:center}
-@media(max-width:760px){.grid{grid-template-columns:1fr}.wrap{padding:14px}.photo{height:220px}}
+:root{--line:#dbdbdb;--muted:#737373;--blue:#0095f6}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}button,input,textarea{font:inherit}.hidden{display:none!important}
+#auth{min-height:100vh;background:#fafafa;display:grid;place-items:center;padding:24px}.authbox{width:min(420px,100%);border:1px solid var(--line);background:#fff;padding:34px;text-align:center}.logo{font-family:cursive;font-size:42px;font-weight:800;margin-bottom:18px}.demoGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:18px 0}.demo{border:1px solid var(--line);background:#fff;padding:10px;border-radius:9px;display:flex;gap:9px;align-items:center;text-align:left}.demo:hover{background:#f7f7f7}.tiny{color:var(--muted);font-size:12px}.link{border:0;background:none;color:var(--blue);font-weight:700}.authbox input{width:100%;padding:11px;margin:5px 0;border:1px solid var(--line);background:#fafafa;border-radius:4px}.primary{width:100%;margin-top:10px;border:0;background:var(--blue);color:#fff;padding:10px;border-radius:8px;font-weight:700}
+.sidebar{position:fixed;inset:0 auto 0 0;width:245px;border-right:1px solid var(--line);padding:26px 14px;background:#fff;z-index:20}.sideLogo{font-family:cursive;font-size:31px;font-weight:800;padding:0 12px 26px}.nav{display:flex;gap:14px;align-items:center;width:100%;border:0;background:transparent;padding:13px 14px;border-radius:10px;margin:3px 0;text-align:left}.nav:hover,.nav.active{background:#f2f2f2}.nav.active{font-weight:700}.ico{font-size:21px;width:23px;text-align:center}.main{margin-left:245px}.page{max-width:935px;margin:auto;padding:28px 20px 80px}.mobileTop,.mobileBar{display:none}
+.feed{display:grid;grid-template-columns:minmax(0,630px) 280px;gap:36px}.stories{display:flex;gap:14px;overflow:auto;padding:8px 2px 18px}.story{min-width:72px;text-align:center;font-size:12px}.ring{width:66px;height:66px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#feda75,#d62976,#4f5bd5);margin:auto}.inner{width:100%;height:100%;padding:3px;background:#fff;border-radius:50%}.ava,.mini,.big{border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#fb7185,#8b5cf6);font-weight:800}.ava{width:100%;height:100%;font-size:20px}.mini{width:38px;height:38px}.big{width:150px;height:150px;font-size:58px}
+.post{padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid var(--line)}.postHead{display:flex;gap:10px;align-items:center;padding:9px 2px}.postPhoto{aspect-ratio:1/1;border-radius:5px;display:grid;place-items:center;color:#fff;font-size:70px;font-weight:900;border:1px solid #eee}.g1{background:linear-gradient(135deg,#fb7185,#f59e0b,#8b5cf6)}.g2{background:linear-gradient(135deg,#0ea5e9,#22c55e)}.g3{background:linear-gradient(135deg,#111827,#7c3aed,#ec4899)}.g4{background:linear-gradient(135deg,#f97316,#fde047)}.g5{background:linear-gradient(135deg,#06b6d4,#2563eb)}.actions{display:flex;gap:14px;padding:12px 2px 8px}.icon{border:0;background:none;font-size:23px;padding:0}.liked{color:#ef4444}.likes{font-weight:700;font-size:14px;margin-bottom:6px}.caption{font-size:14px;line-height:1.45}.comment{display:flex;margin-top:8px}.comment input{flex:1;border:0;outline:none;padding:8px 0}.comment button{border:0;background:none;color:var(--blue);font-weight:700}
+.sideInfo{padding-top:22px}.person{display:flex;gap:10px;align-items:center;margin-bottom:14px}.grow{flex:1}.muted{color:var(--muted);font-size:13px}.blue{border:0;background:none;color:var(--blue);font-weight:700;font-size:12px}
+.explore{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.tile{aspect-ratio:1/1;display:grid;place-items:center;color:#fff;font-size:48px;font-weight:900;cursor:pointer}.search{margin-bottom:20px}.search input{width:100%;border:0;background:#efefef;padding:12px 14px;border-radius:9px;outline:none}.userrow{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #f0f0f0}.userrow .mini{width:48px;height:48px}.userrow button{margin-left:auto;border:0;background:var(--blue);color:#fff;border-radius:8px;padding:8px 13px;font-weight:700}
+.profileHead{display:grid;grid-template-columns:180px 1fr;gap:48px;align-items:center;padding:30px 0}.profileTop{display:flex;gap:12px;align-items:center}.profileTop h2{font-weight:400}.stats{display:flex;gap:32px;margin:20px 0}.profileGrid{border-top:1px solid var(--line);padding-top:20px}
+.msgLayout{height:calc(100vh - 58px);display:grid;grid-template-columns:320px 1fr;border:1px solid var(--line)}.chatList{border-right:1px solid var(--line);overflow:auto}.chatTitle{padding:20px;border-bottom:1px solid var(--line);font-weight:700}.chatPerson{display:flex;gap:12px;align-items:center;padding:12px 16px;cursor:pointer}.chatPerson:hover,.chatPerson.active{background:#f5f5f5}.chatPerson .mini{width:50px;height:50px}.chatPanel{display:flex;flex-direction:column}.chatHead{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}.messages{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:9px}.bubble{max-width:70%;background:#efefef;padding:10px 13px;border-radius:18px;font-size:14px}.mine{align-self:flex-end;background:#3797f0;color:#fff}.send{display:flex;gap:8px;padding:14px;border-top:1px solid var(--line)}.send input{flex:1;border:1px solid var(--line);border-radius:999px;padding:11px 14px}.send button{border:0;background:none;color:var(--blue);font-weight:700}
+.createBox{max-width:600px;margin:40px auto;border:1px solid var(--line);border-radius:14px;overflow:hidden}.createTitle{text-align:center;font-weight:700;border-bottom:1px solid var(--line);padding:14px}.createBody{padding:20px}.createBody textarea{width:100%;min-height:110px;border:1px solid var(--line);border-radius:9px;padding:12px}.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}.swatch{height:60px;border:3px solid transparent;border-radius:9px}.swatch.sel{border-color:#111}
+@media(max-width:900px){.sidebar{width:76px}.sideLogo{font-size:0}.sideLogo:after{content:"P";font:900 28px Arial}.nav span:last-child{display:none}.main{margin-left:76px}.feed{grid-template-columns:1fr}.sideInfo{display:none}}
+@media(max-width:650px){.sidebar{display:none}.main{margin-left:0}.mobileTop{display:flex;height:52px;position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:10;align-items:center;justify-content:space-between;padding:0 14px}.mobileTop .logo{font-size:28px;margin:0}.mobileBar{display:flex;position:fixed;bottom:0;left:0;right:0;height:58px;background:#fff;border-top:1px solid var(--line);z-index:30;justify-content:space-around;align-items:center}.mobileBar button{border:0;background:none;font-size:22px}.page{padding:12px 10px 70px}.msgLayout{height:calc(100vh - 122px);grid-template-columns:115px 1fr}.chatPerson{justify-content:center;padding:10px 5px}.chatPerson .grow{display:none}.profileHead{grid-template-columns:95px 1fr;gap:20px}.big{width:90px;height:90px;font-size:38px}.stats{gap:12px;font-size:13px}.tile{font-size:32px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="top">
-    <div class="brand"><span>picly</span></div>
-    <div class="badge">laboratório fictício • sem banco de dados</div>
-  </div>
+<div id="auth"><div class="authbox"><div class="logo">Picly</div><div id="choosePane"><div class="muted">Escolha uma conta fictícia para entrar</div><div id="demoGrid" class="demoGrid"></div><button class="link" id="showCreate">Criar conta temporária</button></div><div id="createAccount" class="hidden"><input id="newName" placeholder="Nome completo"><input id="newUser" placeholder="Nome de usuário"><button class="primary" id="createAccountBtn">Criar e entrar</button><div style="margin-top:14px"><button class="link" id="backChoose">Voltar</button></div></div></div></div>
 
-  <div class="grid">
-    <section class="card login">
-      <h2>Entrar</h2>
-      <p>Contas de laboratório ficam embutidas no próprio site. Nenhum dado real é coletado.</p>
-      <form id="loginForm">
-        <div class="field"><label>USUÁRIO</label><input id="user" autocomplete="username" placeholder="@lucas"></div>
-        <div class="field"><label>SENHA</label><input id="pass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
-        <button class="primary">Entrar</button>
-      </form>
-      <div id="msg" class="msg"></div>
-      <div class="hint">
-        <b>Atividade de segurança:</b> existe um fluxo legado propositalmente fraco, limitado às contas fictícias comuns. Ele não libera a conta administrativa e não acessa nenhum sistema externo.
-      </div>
-    </section>
-
-    <section class="card app">
-      <div id="appHeader" class="hero">
-        <div class="avatar">P</div>
-        <div><h3>Picly</h3><small>Faça login para abrir o feed</small></div>
-      </div>
-      <div class="nav">
-        <button class="active" data-tab="feed">Feed</button>
-        <button data-tab="explore">Explorar</button>
-        <button data-tab="accounts">Pessoas</button>
-        <button data-tab="profile">Perfil</button>
-      </div>
-      <div id="content" class="content"><div class="locked"><strong>Sessão bloqueada</strong>Entre com uma conta fictícia para continuar.</div></div>
-    </section>
-  </div>
-  <div class="footer">Picly Classroom Lab • ambiente de simulação autorizado</div>
+<div id="app" class="hidden">
+<aside class="sidebar"><div class="sideLogo">Picly</div>
+<button class="nav active" data-page="home"><span class="ico">⌂</span><span>Início</span></button>
+<button class="nav" data-page="search"><span class="ico">⌕</span><span>Pesquisa</span></button>
+<button class="nav" data-page="explore"><span class="ico">▦</span><span>Explorar</span></button>
+<button class="nav" data-page="messages"><span class="ico">✉</span><span>Mensagens</span></button>
+<button class="nav" data-page="create"><span class="ico">＋</span><span>Criar</span></button>
+<button class="nav" data-page="profile"><span class="ico">◉</span><span>Perfil</span></button>
+<button class="nav" id="logoutBtn"><span class="ico">↪</span><span>Sair</span></button></aside>
+<header class="mobileTop"><div class="logo">Picly</div><button class="icon" data-page="messages">✉</button></header>
+<main class="main"><div id="page" class="page"></div></main>
+<nav class="mobileBar"><button data-page="home">⌂</button><button data-page="explore">▦</button><button data-page="create">＋</button><button data-page="messages">✉</button><button data-page="profile">◉</button></nav>
 </div>
 
 <script>
 const accounts=[
- {username:"lucas",password:"Lx2026!foto",name:"Lucas Martins",bio:"Fotografia urbana • São Paulo",role:"user",emoji:"📸"},
- {username:"mari",password:"Mari#design26",name:"Mariana Souza",bio:"Design, cores e café",role:"user",emoji:"🎨"},
- {username:"pedrolima",password:"Pedro.dev_26",name:"Pedro Lima",bio:"Código, música e jogos",role:"user",emoji:"💻"},
- {username:"juliaalves",password:"Julia@food26",name:"Julia Alves",bio:"Gastronomia e viagens",role:"user",emoji:"🍜"},
- {username:"carlos",password:"RunCarlos26!",name:"Carlos Mendes",bio:"Corrida e vida saudável",role:"user",emoji:"🏃"},
- {username:"admin",password:"AdminOnly#2026",name:"Admin Picly",bio:"Administração do laboratório",role:"admin",emoji:"🛡️"}
+ {username:"lucas",name:"Lucas Martins",bio:"Fotografia urbana • São Paulo",emoji:"📸"},
+ {username:"mari",name:"Mariana Souza",bio:"Design, cores e café",emoji:"🎨"},
+ {username:"pedrolima",name:"Pedro Lima",bio:"Código, música e jogos",emoji:"💻"},
+ {username:"juliaalves",name:"Julia Alves",bio:"Gastronomia e viagens",emoji:"🍜"},
+ {username:"carlos",name:"Carlos Mendes",bio:"Corrida e vida saudável",emoji:"🏃"},
+ {username:"bia",name:"Beatriz Rocha",bio:"Música, shows e fotos antigas",emoji:"🎧"},
+ {username:"rafa",name:"Rafael Nunes",bio:"Skate e vídeo",emoji:"🛹"}
 ];
-
-let current=null, activeTab="feed";
-const $=s=>document.querySelector(s);
-const clean=s=>String(s||"").trim().toLowerCase().replace(/^@/,"");
-function legacyProof(username){
-  let s="picly-mobile-v1:"+username+":offline",h=2166136261;
-  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}
-  return (h>>>0).toString(16).padStart(8,"0");
-}
-function setMessage(text,type=""){const e=$("#msg");e.textContent=text;e.className="msg "+type}
-function loginUser(a,mode="normal"){
-  current=a; sessionStorage.setItem("piclyUser",a.username);
-  setMessage(mode==="legacy"?"Sessão de compatibilidade aberta no laboratório.":"Login realizado.","ok");
-  renderHeader(); render();
-}
-function renderHeader(){
-  if(!current){$("#appHeader").innerHTML='<div class="avatar">P</div><div><h3>Picly</h3><small>Faça login para abrir o feed</small></div>';return}
-  $("#appHeader").innerHTML='<div class="avatar">'+current.emoji+'</div><div style="flex:1"><h3>'+current.name+'</h3><small>@'+current.username+' • '+current.role+'</small></div><button class="logout" id="logout">Sair</button>';
-  $("#logout").onclick=()=>{current=null;sessionStorage.removeItem("piclyUser");setMessage("");renderHeader();render()}
-}
-function render(){
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===activeTab));
-  if(!current){$("#content").innerHTML='<div class="locked"><strong>Sessão bloqueada</strong>Entre com uma conta fictícia para continuar.</div>';return}
-  if(activeTab==="feed"){
-    $("#content").innerHTML='<div class="post"><div class="photo">'+current.emoji+'</div><div class="postbody"><b>@'+current.username+'</b><p>Primeira publicação no Picly ✨ Este conteúdo é apenas demonstrativo.</p></div></div><div class="post"><div class="photo" style="background:linear-gradient(135deg,#0ea5e9,#22c55e)">'+accounts[(accounts.indexOf(current)+1)%5].emoji+'</div><div class="postbody"><b>@'+accounts[(accounts.indexOf(current)+1)%5].username+'</b><p>Mais um dia no laboratório de redes sociais.</p></div></div>';
-  }else if(activeTab==="explore"){
-    $("#content").innerHTML='<p class="section-title">Explorar</p><div class="photo" style="border-radius:16px;height:230px">#PICLY</div>';
-  }else if(activeTab==="accounts"){
-    $("#content").innerHTML='<p class="section-title">Contas fictícias</p>'+accounts.filter(a=>a.role!=="admin").map(a=>'<div class="account"><div><b>'+a.emoji+' '+a.name+'</b><br><small>@'+a.username+'</small></div><small>demo</small></div>').join("");
-  }else{
-    $("#content").innerHTML='<p class="section-title">Meu perfil</p><div style="font-size:48px">'+current.emoji+'</div><h2 style="margin-bottom:4px">'+current.name+'</h2><div style="color:#737373">@'+current.username+'</div><p>'+current.bio+'</p>';
-  }
-}
-$("#loginForm").onsubmit=e=>{
-  e.preventDefault();
-  const u=clean($("#user").value), p=$("#pass").value;
-  const a=accounts.find(x=>x.username===u);
-  if(!a||a.password!==p){setMessage("Usuário ou senha incorretos.","err");return}
-  loginUser(a);
-};
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{activeTab=b.dataset.tab;render()});
-
-// Fluxo legado de laboratório.
-// Exemplo conceitual: ?legacy=<usuario>&proof=<prova>
-// A prova é propositalmente previsível e existe só para simular uma falha de autenticação.
-// A conta admin é explicitamente bloqueada.
-const q=new URLSearchParams(location.search);
-if(q.has("legacy")&&q.has("proof")){
- const u=clean(q.get("legacy")), a=accounts.find(x=>x.username===u);
- if(a&&a.role!=="admin"&&q.get("proof")===legacyProof(u)) loginUser(a,"legacy");
- else setMessage("Falha na validação do cliente legado.","err");
-}else{
- const saved=sessionStorage.getItem("piclyUser");
- const a=accounts.find(x=>x.username===saved);
- if(a) current=a;
- renderHeader();render();
-}
-</script>
-</body>
-</html>
+let current=null,pageName="home",selectedChat="mari",chosenGrad="g1";const createdPosts=[],likes={},comments={};
+const posts=[
+{id:1,user:"mari",emoji:"🎨",grad:"g1",symbol:"SUNSET",caption:"Fim de tarde e cores novas ✨",likes:128,time:"2 h"},
+{id:2,user:"pedrolima",emoji:"💻",grad:"g3",symbol:"CODE",caption:"Depois de quebrar tudo 4 vezes, finalmente funcionou 😅",likes:84,time:"4 h"},
+{id:3,user:"juliaalves",emoji:"🍜",grad:"g4",symbol:"FOOD",caption:"Receita nova saindo hoje 🍜",likes:203,time:"6 h"},
+{id:4,user:"carlos",emoji:"🏃",grad:"g2",symbol:"5KM",caption:"Treino de hoje concluído.",likes:76,time:"8 h"},
+{id:5,user:"bia",emoji:"🎧",grad:"g5",symbol:"MUSIC",caption:"Essa playlist salvou minha semana.",likes:141,time:"1 d"},
+{id:6,user:"rafa",emoji:"🛹",grad:"g3",symbol:"SK8",caption:"Tentativa 23 finalmente deu certo.",likes:96,time:"1 d"}];
+const chats={
+lucas:{mari:[["mari","mano apaga aquele story de ontem kkkkk"],["lucas","qual deles? 😭"],["mari","o que eu tava cantando errado no fundo"],["lucas","já salvaram antes de eu apagar kkkkk"],["mari","NÃO ACREDITO 😭😭"]],pedrolima:[["pedrolima","tu terminou o trabalho de história?"],["lucas","nem comecei"],["pedrolima","eu usei metade do modelo antigo e mudei umas partes 💀"],["lucas","se o professor perguntar eu nunca vi essa mensagem kkkkk"]],juliaalves:[["juliaalves","não conta pra ninguém mas eu falei que tava doente pra não ir no treino"],["lucas","e tu postou foto no shopping 20 min depois 😭"],["juliaalves","EU ESQUECI QUE ELE ME SEGUE"]]},
+mari:{bia:[["bia","tu contou pro lucas que eu acho ele bonito?"],["mari","claro que não"],["bia","certeza??"],["mari","100%"],["bia","porque ele começou a curtir TODOS meus stories do nada 😭"]],carlos:[["carlos","eu disse que sabia cozinhar pra impressionar ela"],["mari","e sabe?"],["carlos","queimei miojo ontem."],["mari","KKKKKKK boa sorte"]]},
+pedrolima:{rafa:[["rafa","foi tu que colocou meu nome naquele slide ridículo?"],["pedrolima","talvez"],["rafa","tava escrito especialista em chegar atrasado"],["pedrolima","mentira não era kkkkk"]]}};
+const $=s=>document.querySelector(s),acct=u=>accounts.find(a=>a.username===u),esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+function enter(a){current=a;$("#auth").classList.add("hidden");$("#app").classList.remove("hidden");render()}function logout(){current=null;$("#app").classList.add("hidden");$("#auth").classList.remove("hidden")}
+function nav(p){pageName=p;render();window.scrollTo(0,0)}function stories(){return '<div class="stories">'+accounts.map(a=>'<div class="story" onclick="openProfile(\''+a.username+'\')"><div class="ring"><div class="inner"><div class="ava">'+a.emoji+'</div></div></div><div>'+a.username+'</div></div>').join("")+'</div>'}
+function postCard(p){const l=!!likes[p.id];return '<article class="post"><div class="postHead"><div class="mini">'+p.emoji+'</div><b>@'+p.user+'</b><span class="muted">• '+p.time+'</span></div><div class="postPhoto '+p.grad+'">'+esc(p.symbol)+'</div><div class="actions"><button class="icon '+(l?'liked':'')+'" onclick="toggleLike('+p.id+')">'+(l?'♥':'♡')+'</button><button class="icon" onclick="focusComment('+p.id+')">◯</button><button class="icon">⌁</button></div><div class="likes">'+(p.likes+(l?1:0))+' curtidas</div><div class="caption"><b>@'+p.user+'</b> '+esc(p.caption)+'</div>'+((comments[p.id]||[]).map(c=>'<div class="caption" style="margin-top:5px"><b>@'+current.username+'</b> '+esc(c)+'</div>').join(""))+'<div class="comment"><input id="c'+p.id+'" placeholder="Adicione um comentário..."><button onclick="addComment('+p.id+')">Publicar</button></div></article>'}
+function home(){return '<div class="feed"><div>'+stories()+[...createdPosts,...posts].map(postCard).join("")+'</div><aside class="sideInfo"><div class="person"><div class="mini">'+current.emoji+'</div><div class="grow"><b>@'+current.username+'</b><div class="muted">'+esc(current.name)+'</div></div></div><div class="muted" style="font-weight:700;margin:20px 0 12px">Sugestões para você</div>'+accounts.filter(a=>a.username!==current.username).slice(0,5).map(a=>'<div class="person"><div class="mini">'+a.emoji+'</div><div class="grow"><b>@'+a.username+'</b><div class="muted">'+esc(a.name)+'</div></div><button class="blue">Seguir</button></div>').join("")+'</aside></div>'}
+function explore(){return '<div class="explore">'+[...createdPosts,...posts,...posts.slice(0,3)].map(p=>'<div class="tile '+p.grad+'" onclick="openProfile(\''+p.user+'\')">'+esc(p.symbol)+'</div>').join("")+'</div>'}
+function userRows(list){return list.map(a=>'<div class="userrow"><div class="mini">'+a.emoji+'</div><div><b>@'+a.username+'</b><div class="muted">'+esc(a.name)+'</div></div><button onclick="openProfile(\''+a.username+'\')">Ver perfil</button></div>').join("")}function searchPage(){return '<div class="search"><input id="q" placeholder="Pesquisar" oninput="doSearch()"></div><div id="results">'+userRows(accounts)+'</div>'}function doSearch(){const q=$("#q").value.toLowerCase();$("#results").innerHTML=userRows(accounts.filter(a=>a.username.includes(q)||a.name.toLowerCase().includes(q)))}
+function profilePage(user=current.username){const a=acct(user)||current,up=[...createdPosts,...posts].filter(p=>p.user===a.username);return '<div class="profileHead"><div class="big">'+a.emoji+'</div><div><div class="profileTop"><h2>@'+a.username+'</h2><button class="blue">'+(a.username===current.username?'Editar perfil':'Seguir')+'</button></div><div class="stats"><span><b>'+up.length+'</b> publicações</span><span><b>'+((a.username.length*83)%900+120)+'</b> seguidores</span><span><b>'+((a.username.length*17)%300+80)+'</b> seguindo</span></div><b>'+esc(a.name)+'</b><div style="margin-top:6px">'+esc(a.bio||"")+'</div></div></div><div class="profileGrid explore">'+(up.length?up.map(p=>'<div class="tile '+p.grad+'">'+esc(p.symbol)+'</div>').join(""):'<div class="muted">Nenhuma publicação ainda.</div>')+'</div>'}function openProfile(u){pageName="profile";$("#page").innerHTML=profilePage(u)}
+function threads(){const own=chats[current.username]||{},rev={};Object.entries(chats).forEach(([owner,t])=>Object.entries(t).forEach(([peer,msgs])=>{if(peer===current.username)rev[owner]=msgs}));return {...rev,...own}}
+function messagesPage(){const t=threads(),peers=Object.keys(t);if(peers.length&&!peers.includes(selectedChat))selectedChat=peers[0];if(!peers.length){const f=accounts.find(a=>a.username!==current.username);selectedChat=f.username;t[selectedChat]=[]}return '<div class="msgLayout"><div class="chatList"><div class="chatTitle">@'+current.username+'</div>'+Object.keys(t).map(u=>{const a=acct(u);return '<div class="chatPerson '+(u===selectedChat?'active':'')+'" onclick="selectChat(\''+u+'\')"><div class="mini">'+(a?a.emoji:"🙂")+'</div><div class="grow"><b>@'+u+'</b><div class="muted">Ver conversa</div></div></div>'}).join("")+'</div><div class="chatPanel">'+chatPanel(selectedChat,t[selectedChat]||[])+'</div></div>'}
+function chatPanel(peer,msgs){const a=acct(peer)||{emoji:"🙂",name:peer};return '<div class="chatHead"><div class="mini">'+a.emoji+'</div><div><b>@'+peer+'</b><div class="muted">'+esc(a.name)+'</div></div></div><div class="messages">'+msgs.map(m=>'<div class="bubble '+(m[0]===current.username?'mine':'')+'">'+esc(m[1])+'</div>').join("")+'</div><div class="send"><input id="newMsg" placeholder="Mensagem..."><button onclick="sendMessage(\''+peer+'\')">Enviar</button></div>'}
+function selectChat(u){selectedChat=u;render()}function sendMessage(peer){const v=$("#newMsg").value.trim();if(!v)return;if(!chats[current.username])chats[current.username]={};if(!chats[current.username][peer])chats[current.username][peer]=[];chats[current.username][peer].push([current.username,v]);render()}
+function createPage(){return '<div class="createBox"><div class="createTitle">Criar nova publicação</div><div class="createBody"><textarea id="cap" placeholder="Escreva uma legenda..."></textarea><div class="palette">'+["g1","g2","g3","g4","g5"].map((g,i)=>'<button class="swatch '+g+(i===0?' sel':'')+'" data-grad="'+g+'" onclick="pickGrad(this)"></button>').join("")+'</div><input id="symbol" maxlength="12" placeholder="Texto da imagem" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:8px"><button class="primary" onclick="createPost()">Compartilhar</button></div></div>'}function pickGrad(el){chosenGrad=el.dataset.grad;document.querySelectorAll(".swatch").forEach(x=>x.classList.remove("sel"));el.classList.add("sel")}function createPost(){const cap=$("#cap").value.trim(),sym=$("#symbol").value.trim()||"PICLY";createdPosts.unshift({id:1000+createdPosts.length,user:current.username,emoji:current.emoji,grad:chosenGrad,symbol:sym.toUpperCase(),caption:cap||"Nova publicação ✨",likes:0,time:"agora"});nav("home")}
+function toggleLike(id){likes[id]=!likes[id];render()}function focusComment(id){$("#c"+id)?.focus()}function addComment(id){const e=$("#c"+id);if(!e||!e.value.trim())return;(comments[id]||(comments[id]=[])).push(e.value.trim());render()}
+function render(){document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===pageName));const p=$("#page");if(pageName==="home")p.innerHTML=home();else if(pageName==="explore")p.innerHTML=explore();else if(pageName==="search")p.innerHTML=searchPage();else if(pageName==="messages")p.innerHTML=messagesPage();else if(pageName==="create")p.innerHTML=createPage();else p.innerHTML=profilePage()}
+function drawAccounts(){$("#demoGrid").innerHTML=accounts.slice(0,6).map(a=>'<button class="demo" onclick="enter(acct(\''+a.username+'\'))"><div class="mini">'+a.emoji+'</div><div><b>@'+a.username+'</b><div class="tiny">'+esc(a.name)+'</div></div></button>').join("")}
+drawAccounts();document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>nav(b.dataset.page));$("#logoutBtn").onclick=logout;$("#showCreate").onclick=()=>{$("#choosePane").classList.add("hidden");$("#createAccount").classList.remove("hidden")};$("#backChoose").onclick=()=>{$("#createAccount").classList.add("hidden");$("#choosePane").classList.remove("hidden")};$("#createAccountBtn").onclick=()=>{const name=$("#newName").value.trim(),u=$("#newUser").value.trim().toLowerCase().replace(/[^a-z0-9._]/g,"");if(!name||u.length<3){alert("Preencha nome e usuário.");return}if(accounts.some(a=>a.username===u)){alert("Esse usuário já existe.");return}const a={username:u,name,bio:"Conta temporária desta sessão",emoji:"🙂"};accounts.push(a);enter(a)};
+</script></body></html>
